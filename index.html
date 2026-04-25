@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Стишкопис | Главная</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #fefaf5;
+            color: #2d2a24;
+            line-height: 1.5;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        /* Шапка с настроением */
+        .hero {
+            background: #f5e7d9;
+            padding: 2rem 2rem 1rem 2rem;
+            text-align: center;
+            border-bottom: 2px solid #ffe0b5;
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            letter-spacing: -0.01em;
+            background: linear-gradient(135deg, #c07c4a, #8b5a2b);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            margin-top: 0.5rem;
+            color: #7a5a44;
+            font-style: italic;
+        }
+
+        /* Блок автора */
+        .author-card {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            padding: 2.5rem 2rem;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid #f0e2d4;
+        }
+
+        .author-photo {
+            flex-shrink: 0;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border: 4px solid #fff3e9;
+        }
+
+        .author-bio {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .author-bio h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.75rem;
+            color: #4a3727;
+        }
+
+        .author-bio .tagline {
+            font-weight: 500;
+            color: #b97f52;
+            margin-bottom: 1rem;
+            border-left: 4px solid #e4bc8b;
+            padding-left: 0.75rem;
+        }
+
+        .author-bio p {
+            margin-bottom: 0.75rem;
+            color: #3a2e25;
+        }
+
+        /* Кнопка перехода */
+        .cta-section {
+            text-align: center;
+            padding: 2rem 2rem 2.5rem;
+            background: #fffaf5;
+        }
+
+        .btn-catalog {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #2d2a24;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 0.9rem 2rem;
+            border-radius: 60px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-catalog:hover {
+            background: #c07c4a;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(192, 124, 74, 0.3);
+        }
+
+        .btn-catalog:active {
+            transform: translateY(1px);
+        }
+
+        /* подвал */
+        .footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.85rem;
+            color: #a68b74;
+            background: #fefaf5;
+            border-top: 1px solid #f0e2d4;
+        }
+
+        @media (max-width: 640px) {
+            .author-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.8rem;
+            }
+            .author-bio .tagline {
+                border-left: none;
+                text-align: center;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <h1>📝 Стишкописная мастерская</h1>
+        <p>Короткие стихи ● Жизненные зарисовки ● Улыбка в рифму</p>
+    </div>
+
+    <div class="author-card">
+        <!-- ЗАМЕНИТЕ ССЫЛКУ НА ВАШЕ РЕАЛЬНОЕ ФОТО -->
+        <img class="author-photo" src="images/avatar.png" alt="Фото автора" 
+             onerror="this.src='https://placehold.co/400x400/f5e7d9/8b5a2b?text=Фото+автора'">
+        <div class="author-bio">
+            <h2>Иван Стихотворцев</h2>
+            <div class="tagline">✍️ Сочиняю, когда чай остывает</div>
+            <p>Привет! Я живу в маленьком городе, работаю веб-разработчиком, а в свободное время придумываю короткие шуточные четверостишия.</p>
+            <p>Мои стихи — это не про высокую поэзию, а про то, как кот перекрыл доступ к клавиатуре, почему хостинг падает во время дедлайна, и как не запутаться в двух кнопках.</p>
+            <p>⭐ Люблю честный юмор, неожиданные рифмы и когда читатель улыбается.</p>
+        </div>
+    </div>
+
+    <div class="cta-section">
+        <a href="catalog.html" class="btn-catalog">
+            📖 Смотреть каталог стишков
+            <span>→</span>
+        </a>
+        <p style="margin-top: 1rem; font-size: 0.9rem; color: #7e6956;">Более 20 миниатюр — от IT до бытовых зарисовок</p>
+    </div>
+
+    <div class="footer">
+        © 2025 Стишкописная мастерская · Все стихи написаны с долей самоиронии
+    </div>
+</div>
+</body>
+</html>

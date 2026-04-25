@@ -1,11 +1,210 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог стишков</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            background: #fefaf5;
+            color: #2d2a24;
+            line-height: 1.5;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        /* Шапка с кнопкой назад */
+        .catalog-header {
+            background: #f5e7d9;
+            padding: 1.2rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border-bottom: 2px solid #ffe0b5;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: #2d2a24;
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            transition: 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            background: #c07c4a;
+            transform: translateX(-3px);
+        }
+
+        .catalog-header h1 {
+            font-size: 1.8rem;
+            color: #4a3727;
+        }
+
+        /* Основной контент */
+        .poems-list {
+            padding: 2rem;
+        }
+
+        .poem-card {
+            background: #fffaf5;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.8rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            border: 1px solid #f0e2d4;
+            transition: 0.1s;
+        }
+
+        .poem-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.75rem;
+            color: #c07c4a;
+        }
+
+        .poem-text {
+            font-family: 'Georgia', serif;
+            white-space: pre-wrap;
+            background: #ffffff;
+            padding: 1rem;
+            border-radius: 1rem;
+            border-left: 4px solid #e4bc8b;
+            margin: 1rem 0;
+            line-height: 1.6;
+        }
+
+        .poem-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.8rem;
+            color: #a68b74;
+            flex-wrap: wrap;
+        }
+
+        .loading, .error {
+            text-align: center;
+            padding: 3rem;
+            font-size: 1.2rem;
+            color: #a68b74;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.85rem;
+            color: #a68b74;
+            background: #fefaf5;
+            border-top: 1px solid #f0e2d4;
+        }
+
+        @media (max-width: 640px) {
+            .catalog-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .poems-list {
+                padding: 1.2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>📜 Каталог стишков</h1>
-    <div id="poemsContainer"></div>
-    <script src="script.js"></script>
+<div class="container">
+    <div class="catalog-header">
+        <a href="index.html" class="back-button">
+            ← На главную
+        </a>
+        <h1>📚 Все стишки</h1>
+        <div style="width: 80px;"></div> <!-- пустышка для баланса на десктопе -->
+    </div>
+
+    <div class="poems-list" id="poemsContainer">
+        <div class="loading">Загружаем стишки... ✍️</div>
+    </div>
+
+    <div class="footer">
+        © 2025 Стишкописная мастерская · Короткие улыбки в рифму
+    </div>
+</div>
+
+<script>
+    // Загрузка стишков из poems.json
+    fetch('poems.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Не удалось загрузить poems.json (статус ${response.status})`);
+            }
+            return response.json();
+        })
+        .then(poems => {
+            const container = document.getElementById('poemsContainer');
+            if (!poems.length) {
+                container.innerHTML = '<div class="error">Пока нет ни одного стишка. Добавьте их в poems.json :)</div>';
+                return;
+            }
+
+            let html = '';
+            poems.forEach(poem => {
+                html += `
+                    <div class="poem-card">
+                        <h3>${escapeHtml(poem.title)}</h3>
+                        <div class="poem-text">${escapeHtml(poem.text).replace(/\n/g, '<br>')}</div>
+                        <div class="poem-meta">
+                            <span>📅 ${poem.date || 'дата не указана'}</span>
+                            <span>🏷️ ${poem.tags ? poem.tags.join(' · ') : 'без тегов'}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+            const container = document.getElementById('poemsContainer');
+            container.innerHTML = `
+                <div class="error">
+                    ⚠️ Не удалось загрузить стишки.<br>
+                    Убедитесь, что файл <strong>poems.json</strong> лежит рядом с catalog.html<br>
+                    и в нём правильный формат JSON.
+                </div>
+            `;
+        });
+
+    // Простая защита от XSS (если в тексте стишка вдруг попадёт HTML)
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+</script>
 </body>
 </html>
