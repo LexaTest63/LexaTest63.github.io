@@ -1,0 +1,21 @@
+body {
+    font-family: system-ui, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: #faf9f8;
+}
+.poem-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+pre {
+    font-family: inherit;
+    white-space: pre-wrap;
+    background: #f3f3f3;
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+}
